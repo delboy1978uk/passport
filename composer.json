@@ -1,6 +1,6 @@
 {
-    "name": "delboy1978uk/blank",
-    "description": "A blank project",
+    "name": "delboy1978uk/passport",
+    "description": "Passport Control - an ACL service",
     "license": "MIT",
     "authors": [
         {
@@ -11,12 +11,17 @@
     "require": {
     },
     "require-dev":{
-        "codeception/codeception":"^4.1",
+        "codeception/codeception": "^4.1",
         "codeception/module-asserts": "^1.1"
     },
     "autoload":{
         "psr-4":{
-            "Del\\":"src/"
+            "Del\\Passport\\": "src/"
+        }
+    },
+    "autoload-dev":{
+        "psr-4":{
+            "DelTest\\Passport\\": "tests/unit/Del/Passport/"
         }
     }
 }

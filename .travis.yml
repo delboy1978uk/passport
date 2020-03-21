@@ -12,22 +12,13 @@ branches:
 
 addons:
   hosts:
-    - blank
+    - passport
   chrome: stable
 
 sudo: false
 
 install:
-  - wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
   - composer install
-
-services:
-  - xvfb
-
-before_script:
-  - export DISPLAY=:99.0
-  - sleep 5
-  - java -jar selenium-server-standalone-2.42.2.jar -port 4444 &
 
 script:
   - php vendor/bin/codecept run unit --coverage-xml --env travis
