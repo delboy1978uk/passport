@@ -3,6 +3,7 @@
 namespace Del\Passport;
 
 use Del\Passport\Entity\Passport;
+use Del\Passport\Entity\Role;
 use Doctrine\ORM\EntityManager;
 
 class PassportControl
@@ -61,5 +62,38 @@ class PassportControl
         $passport = new Passport();
 
         return $passport;
+    }
+
+    /**
+     * @param int $userId
+     * @return PassportInterface
+     */
+    public function createNewRole(RoleInterface $role): RoleInterface
+    {
+        $this->entityManager->persist($role);
+        $this->entityManager->flush($role);
+
+        return $role;
+    }
+
+    /**
+     * @param int $userId
+     * @return PassportInterface
+     */
+    public function removeRole(RoleInterface $role): void
+    {
+        $this->entityManager->remove($role);
+        $this->entityManager->flush($role);
+    }
+
+    /**
+     * @param string $name
+     * @return Role|null
+     */
+    public function findRole(string $name): ?Role
+    {
+        return $this->entityManager->getRepository(Role::class)->findOneBy([
+            'roleName' => $name,
+        ]);
     }
 }

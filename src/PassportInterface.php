@@ -3,13 +3,14 @@
 namespace Del\Passport;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 interface PassportInterface
 {
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getEntitlements(): ArrayCollection;
+    public function getEntitlements(): Collection;
 
     /**
      * @return int

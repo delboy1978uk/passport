@@ -2,16 +2,16 @@
 
 namespace Del\Passport\Entity;
 
+use Del\Passport\RoleInterface;
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="Del\Passport\Repository\RoleRepository")
- * @ORM\Table(name="PassportRole",uniqueConstraints={@ORM\UniqueConstraint(name="roleName_idx", columns={"roleName"})})
- * @ORM\InheritanceType("SINGLE_TABLE")
- * @ORM\DiscriminatorColumn(name="class", type="string")
+ * @ORM\Entity
+ * @ORM\Table(name="Role",uniqueConstraints={@ORM\UniqueConstraint(name="roleName_idx", columns={"roleName"})})
  */
-class Role implements PassportInterface
+class Role implements RoleInterface
 {
     /**
      * @ORM\Id
@@ -29,15 +29,15 @@ class Role implements PassportInterface
 
     /**
      * A role can have various roles under it
-     * @OneToMany(targetEntity="Role", mappedBy="parentRole")
+     * @ORM\OneToMany(targetEntity="Role", mappedBy="parentRole")
      * @var ArrayCollection $children
      */
     private $children;
 
     /**
      * Many role have one parent
-     * @ManyToOne(targetEntity="Role", inversedBy="children")
-     * @JoinColumn(name="parent_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Role", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * @var Role $parentRole
      */
     private $parentRole;
@@ -75,17 +75,17 @@ class Role implements PassportInterface
     }
 
     /**
-     * @return ArrayCollection
+     * @return Collection
      */
-    public function getChildren(): ArrayCollection
+    public function getChildren(): Collection
     {
         return $this->children;
     }
 
     /**
-     * @param ArrayCollection $children
+     * @param Collection $children
      */
-    public function setChildren(ArrayCollection $children): void
+    public function setChildren(Collection $children): void
     {
         $this->children = $children;
     }
