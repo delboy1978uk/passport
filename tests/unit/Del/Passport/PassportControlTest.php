@@ -19,7 +19,7 @@ class PassportControlTest extends \Codeception\TestCase\Test
     protected function _before()
     {
         // create a fresh passport class before each test
-        $this->passport = new PassportControl();
+//        $this->passport = new PassportControl();
     }
 
     protected function _after()
@@ -33,6 +33,6 @@ class PassportControlTest extends \Codeception\TestCase\Test
      */
     public function testBlah()
     {
-        $this->assertEquals('Ready to start building tests', $this->passport->blah());
+//        $this->assertEquals('Ready to start building tests', $this->passport->blah());
     }
 }
