@@ -2,8 +2,10 @@
 
 namespace Del\Passport;
 
-use Del\Passport\Entity\Passport;
+use Del\Passport\Passport;
+use Del\Passport\Entity\PassportRole;
 use Del\Passport\Entity\Role;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManager;
 
 class PassportControl
@@ -22,11 +24,10 @@ class PassportControl
 
     /**
      * @param PassportInterface $passport
-     * @param ActionInterface $action
      * @param ResourceInterface $resource
      * @return bool
      */
-    public function isAuthorized(PassportInterface $passport, ActionInterface $action, ResourceInterface $resource): bool
+    public function isAuthorized(PassportInterface $passport, ResourceInterface $resource): bool
     {
         return true;
     }
@@ -37,8 +38,17 @@ class PassportControl
      * @param ResourceInterface $resource
      * @return bool
      */
-    public function grantEntitlement(PassportInterface $passport, RoleInterface $role, ResourceInterface $resource): bool
+    public function grantEntitlement(PassportInterface $passport, RoleInterface $role, ResourceInterface $resource = null): bool
     {
+        $userId = $passport->getUserId();
+        $resource ? $resourceId = $resource->getResourceId() : null;
+        $entitlement = new PassportRole();
+        $entitlement->setUserId($userId);
+        $entitlement->setRole($role);
+        $resourceId ? $entitlement->setEntityId($resourceId) : null;
+        $this->entityManager->persist($entitlement);
+        $this->entityManager->flush($entitlement);
+
         return true;
     }
 
@@ -51,17 +61,6 @@ class PassportControl
     public function revokeEntitlement(PassportInterface $passport, RoleInterface $role, ResourceInterface $resource): bool
     {
         return true;
-    }
-
-    /**
-     * @param int $userId
-     * @return PassportInterface
-     */
-    public function createNewPassport(int $userId): PassportInterface
-    {
-        $passport = new Passport();
-
-        return $passport;
     }
 
     /**
@@ -95,5 +94,37 @@ class PassportControl
         return $this->entityManager->getRepository(Role::class)->findOneBy([
             'roleName' => $name,
         ]);
+    }
+
+    /**
+     * @param string $name
+     * @param int $id
+     * @return PassportRole|null
+     */
+    public function findPassportRole(string $name, int $id, int $entityId = null): ?PassportRole
+    {
+        $criteria = [
+            'role' => $name,
+            'userId' => $id,
+        ];
+
+        if ($entityId) {
+            $criteria['entityId'] = $entityId;
+        }
+
+        return $this->entityManager->getRepository(PassportRole::class)->findOneBy($criteria);
+    }
+
+    /**
+     * @param int $id
+     * @return Passport
+     */
+    public function findUserPassport(int $id): Passport
+    {
+        $roles = $this->entityManager->getRepository(PassportRole::class)->findBy([
+            'userId' => $id,
+        ]);
+
+        return new Passport($id, $roles);
     }
 }

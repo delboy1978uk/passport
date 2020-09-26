@@ -12,7 +12,7 @@ class PassportControlTest extends \Codeception\TestCase\Test
     protected $tester;
 
     /**
-     * @var Passport
+     * @var PassportControl
      */
     protected $passport;
 
@@ -35,6 +35,4 @@ class PassportControlTest extends \Codeception\TestCase\Test
     {
         $this->assertEquals('Ready to start building tests', $this->passport->blah());
     }
-
-
 }

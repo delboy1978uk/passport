@@ -32,4 +32,74 @@ class PassportRole
      * @var Role $role
      */
     private $role;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @var int $entityId
+     */
+    private $entityId;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
+
+    /**
+     * @param int $userId
+     */
+    public function setUserId(int $userId): void
+    {
+        $this->userId = $userId;
+    }
+
+    /**
+     * @return Role
+     */
+    public function getRole(): Role
+    {
+        return $this->role;
+    }
+
+    /**
+     * @param Role $role
+     */
+    public function setRole(Role $role): void
+    {
+        $this->role = $role;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getEntityId(): ?int
+    {
+        return $this->entityId;
+    }
+
+    /**
+     * @param int $entityId
+     */
+    public function setEntityId(int $entityId): void
+    {
+        $this->entityId = $entityId;
+    }
 }

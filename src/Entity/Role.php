@@ -43,6 +43,12 @@ class Role implements RoleInterface
     private $parentRole;
 
     /**
+     * @ORM\Column(type="string",length=75)
+     * @var string $class
+     */
+    private $class;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -104,6 +110,22 @@ class Role implements RoleInterface
     public function setParentRole(Role $parentRole): void
     {
         $this->parentRole = $parentRole;
+    }
+
+    /**
+     * @return string
+     */
+    public function getClass(): string
+    {
+        return $this->class;
+    }
+
+    /**
+     * @param string $class
+     */
+    public function setClass(string $class): void
+    {
+        $this->class = $class;
     }
 }
 
