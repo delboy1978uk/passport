@@ -50,7 +50,7 @@ jobs:
         run: composer install --prefer-dist --no-progress
 
       - name: Run test suite with coverage
-        run: XDEBUG_MODE=coverage vendor/bin/codecept run Unit --coverage-xml
+        run: XDEBUG_MODE=coverage vendor/bin/codecept run Unit --coverage-xml --env=ci
 
       - name: Download Scrutinizer ocular.phar
         run: composer require scrutinizer/ocular -W
