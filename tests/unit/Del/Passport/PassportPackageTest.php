@@ -23,8 +23,8 @@ class PassportPackageTest extends Unit
             'driver' => 'pdo_mysql',
             'host' => '127.0.0.1',
             'dbname' => 'awesome',
-            'user' => 'root',
-            'password' => 'root'
+            'user' => 'dbuser',
+            'password' => '[123456]'
         ];
         $package = new PassportPackage();
         $package->addToContainer($container);
