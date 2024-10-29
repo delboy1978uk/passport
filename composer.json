@@ -4,18 +4,19 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Derek McLean",
+            "name": "Derek Stephen McLean",
             "email": "delboy1978uk@gmail.com"
         }
     ],
     "require": {
-        "php": ">7.1",
-        "delboy1978uk/barnacle": "^2.2"
+        "php": "^8.2",
+        "delboy1978uk/barnacle": "^2.2",
+        "delboy1978uk/bone-doctrine": "^2.1"
     },
     "require-dev":{
+        "ext-xdebug": "*",
         "roave/security-advisories": "dev-master",
-        "codeception/codeception": "^4.1",
-        "codeception/module-asserts": "^1.1"
+        "delboy1978uk/dev-tools": "^1.0"
     },
     "autoload":{
         "psr-4":{
@@ -25,6 +26,11 @@
     "autoload-dev":{
         "psr-4":{
             "DelTest\\Passport\\": "tests/unit/Del/Passport/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp": false
         }
     }
 }

@@ -1,103 +1,61 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Del\Passport\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Bone\BoneDoctrine\Traits\HasId;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity
- */
+#[ORM\Entity]
 class PassportRole
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @var int $id
-     */
-    private $id;
+    use HasId;
 
-    /**
-     * @ORM\Column(type="integer")
-     * @var int $userId
-     */
-    private $userId;
+    #[ORM\Column(type: 'integer')]
+    private int $userId;
 
-    /**
-     * many users have many roles
-     * @ORM\ManyToOne(targetEntity="Role")
-     * @ORM\JoinColumn(name="role", referencedColumnName="id")
-     * @var Role $role
-     */
-    private $role;
+    #[ORM\ManyToOne(targetEntity: Role::class)]
+    private Role $role;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     * @var int $entityId
-     */
+    #[ORM\Column(type: 'integer')]
     private $entityId;
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return int
-     */
     public function getUserId(): int
     {
         return $this->userId;
     }
 
-    /**
-     * @param int $userId
-     */
     public function setUserId(int $userId): void
     {
         $this->userId = $userId;
     }
 
-    /**
-     * @return Role
-     */
     public function getRole(): Role
     {
         return $this->role;
     }
 
-    /**
-     * @param Role $role
-     */
     public function setRole(Role $role): void
     {
         $this->role = $role;
     }
 
-    /**
-     * @return int|null
-     */
     public function getEntityId(): ?int
     {
         return $this->entityId;
     }
 
-    /**
-     * @param int $entityId
-     */
     public function setEntityId(int $entityId): void
     {
         $this->entityId = $entityId;

@@ -9,10 +9,7 @@ use Doctrine\ORM\EntityManager;
 
 class PassportPackage implements RegistrationInterface, EntityRegistrationInterface
 {
-    /**
-     * @param Container $c
-     */
-    public function addToContainer(Container $c)
+    public function addToContainer(Container $c): void
     {
         $c[PassportControl::class] = $c->factory(function(Container $c) {
             $em = $c->get(EntityManager::class);
