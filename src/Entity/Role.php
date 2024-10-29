@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Del\Passport\Entity;
 
+use Bone\BoneDoctrine\Traits\HasId;
 use Del\Passport\RoleInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -13,116 +14,70 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\UniqueConstraint(name: "roleName_idx", columns: ["roleName"])]
 class Role implements RoleInterface
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue
-     * @var int $id
-     */
-    private $id;
+    use HasId;
 
-    /**
-     * @ORM\Column(type="string",length=50)
-     * @var string $roleName
-     */
-    private $roleName;
+    #[ORM\Column(type: 'string', length: 50)]
+    private string $roleName = '';
 
-    /**
-     * A role can have various roles under it
-     * @ORM\OneToMany(targetEntity="Role", mappedBy="parentRole")
-     * @var ArrayCollection $children
-     */
-    private $children;
+    #[ORM\OneToMany(targetEntity: Role::class, mappedBy: 'parentRole')]
+    private Collection $children;
+    
+    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'children')]
+    private ?Role $parentRole;
 
-    /**
-     * Many role have one parent
-     * @ORM\ManyToOne(targetEntity="Role", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     * @var Role $parentRole
-     */
-    private $parentRole;
+    #[ORM\Column(type: 'string', length: 75)]
+    private string $class = '';
 
-    /**
-     * @ORM\Column(type="string",length=75)
-     * @var string $class
-     */
-    private $class;
+    public function __construct()
+    {
+        $this->children = new ArrayCollection();
+    }
 
-    /**
-     * @return int
-     */
     public function getId(): int
     {
         return $this->id;
     }
 
-    /**
-     * @param int $id
-     */
     public function setId(int $id): void
     {
         $this->id = $id;
     }
 
-    /**
-     * @return string
-     */
     public function getRoleName(): string
     {
         return $this->roleName;
     }
 
-    /**
-     * @param string $roleName
-     */
     public function setRoleName(string $roleName): void
     {
         $this->roleName = $roleName;
     }
 
-    /**
-     * @return Collection
-     */
     public function getChildren(): Collection
     {
         return $this->children;
     }
 
-    /**
-     * @param Collection $children
-     */
     public function setChildren(Collection $children): void
     {
         $this->children = $children;
     }
 
-    /**
-     * @return Role
-     */
     public function getParentRole(): Role
     {
         return $this->parentRole;
     }
 
-    /**
-     * @param Role $parentRole
-     */
     public function setParentRole(Role $parentRole): void
     {
         $this->parentRole = $parentRole;
     }
 
-    /**
-     * @return string
-     */
     public function getClass(): string
     {
         return $this->class;
     }
 
-    /**
-     * @param string $class
-     */
     public function setClass(string $class): void
     {
         $this->class = $class;

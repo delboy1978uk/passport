@@ -42,7 +42,7 @@ class PassportControl
     public function createNewRole(RoleInterface $role): RoleInterface
     {
         $this->entityManager->persist($role);
-        $this->entityManager->flush($role);
+        $this->entityManager->flush();
 
         return $role;
     }

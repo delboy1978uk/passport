@@ -6,18 +6,19 @@ namespace DelTest\Passport;
 use Barnacle\Container;
 use Bone\BoneDoctrine\BoneDoctrinePackage;
 use Codeception\Test\Unit;
+use Del\Passport\Entity\Role;
 use Del\Passport\PassportControl;
 use Del\Passport\PassportPackage;
 use Doctrine\ORM\EntityManagerInterface;
+use Tests\Support\UnitTester;
 
 class PassportControlTest extends Unit
 {
-
+    protected UnitTester $tester;
     protected PassportControl $passportControl;
 
     protected function _before()
     {
-        echo 'XXX';
         $container = new Container();
         $container['cache_dir'] = './tests/data';
         $container['proxy_dir'] = './tests/data';
@@ -46,6 +47,9 @@ class PassportControlTest extends Unit
 
     public function testAddRole()
     {
-//        $this->assertEquals('Ready to start building tests', $this->passport->blah());
+        $role = new Role();
+        $role->setRoleName('superuser');
+        $this->passportControl->createNewRole($role);
+
     }
 }
