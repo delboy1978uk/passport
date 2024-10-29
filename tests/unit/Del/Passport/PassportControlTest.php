@@ -17,6 +17,7 @@ class PassportControlTest extends Unit
 
     protected function _before()
     {
+        echo 'XXX';
         $container = new Container();
         $container['cache_dir'] = './tests/data';
         $container['proxy_dir'] = './tests/data';

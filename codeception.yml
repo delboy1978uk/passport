@@ -18,8 +18,4 @@ extensions:
     enabled:
         - Codeception\Extension\RunFailed
 params:
-    - .env.docker
-env:
-    ci:
-        params:
-            - .env.ci
+    - .env
