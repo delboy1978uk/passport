@@ -16,7 +16,8 @@
     "require-dev":{
         "ext-xdebug": "*",
         "roave/security-advisories": "dev-master",
-        "delboy1978uk/dev-tools": "^1.0"
+        "delboy1978uk/dev-tools": "^1.0",
+        "codeception/module-db": "^3.1"
     },
     "autoload":{
         "psr-4":{

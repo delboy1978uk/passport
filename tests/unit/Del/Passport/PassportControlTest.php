@@ -3,8 +3,12 @@
 namespace DelTest\Passport;
 
 
+use Barnacle\Container;
+use Bone\BoneDoctrine\BoneDoctrinePackage;
 use Codeception\Test\Unit;
 use Del\Passport\PassportControl;
+use Del\Passport\PassportPackage;
+use Doctrine\ORM\EntityManagerInterface;
 
 class PassportControlTest extends Unit
 {
@@ -13,13 +17,29 @@ class PassportControlTest extends Unit
 
     protected function _before()
     {
-        // create a fresh passport class before each test
-//        $this->passport = new PassportControl();
+        $container = new Container();
+        $container['cache_dir'] = './tests/data';
+        $container['proxy_dir'] = './tests/data';
+        $container['entity_paths'] = ['./tests/data'];
+        $container['consoleCommands'] = [];
+        $container['devMode'] = true;
+
+        $container['db'] = [
+            'driver' => 'pdo_mysql',
+            'host' => $_ENV['DB_HOST'],
+            'dbname' => $_ENV['DB_NAME'],
+            'user' => $_ENV['DB_USER'],
+            'password' => $_ENV['DB_PASSWORD']
+        ];
+        $package = new BoneDoctrinePackage();
+        $package->addToContainer($container);
+        $package = new PassportPackage();
+        $package->addToContainer($container);
+        $this->passportControl = new PassportControl($container->get(EntityManagerInterface::class));
     }
 
     protected function _after()
     {
-        // unset the passport class after each test
         unset($this->passportControl);
     }
 

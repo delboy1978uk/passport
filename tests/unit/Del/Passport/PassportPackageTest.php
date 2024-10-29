@@ -4,12 +4,15 @@ namespace DelTest\Passport;
 
 
 use Barnacle\Container;
+use Bone\BoneDoctrine\BoneDoctrinePackage;
 use Codeception\Test\Unit;
 use Del\Passport\PassportPackage;
 use Doctrine\ORM\EntityManagerInterface;
+use Tests\Support\UnitTester;
 
 class PassportPackageTest extends Unit
 {
+    protected UnitTester $tester;
 
     public function testPackage()
     {
@@ -19,13 +22,16 @@ class PassportPackageTest extends Unit
         $container['entity_paths'] = ['./tests/data'];
         $container['consoleCommands'] = [];
         $container['devMode'] = true;
+
         $container['db'] = [
             'driver' => 'pdo_mysql',
-            'host' => '127.0.0.1',
-            'dbname' => 'awesome',
-            'user' => 'dbuser',
-            'password' => '[123456]'
+            'host' => $_ENV['DB_HOST'],
+            'dbname' => $_ENV['DB_NAME'],
+            'user' => $_ENV['DB_USER'],
+            'password' => $_ENV['DB_PASSWORD']
         ];
+        $package = new BoneDoctrinePackage();
+        $package->addToContainer($container);
         $package = new PassportPackage();
         $package->addToContainer($container);
 
