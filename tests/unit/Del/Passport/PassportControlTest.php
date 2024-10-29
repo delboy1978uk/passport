@@ -2,19 +2,14 @@
 
 namespace DelTest\Passport;
 
+
+use Codeception\Test\Unit;
 use Del\Passport\PassportControl;
 
-class PassportControlTest extends \Codeception\TestCase\Test
+class PassportControlTest extends Unit
 {
-    /**
-     * @var \UnitTester
-     */
-    protected $tester;
 
-    /**
-     * @var PassportControl
-     */
-    protected $passport;
+    protected PassportControl $passportControl;
 
     protected function _before()
     {
@@ -25,7 +20,7 @@ class PassportControlTest extends \Codeception\TestCase\Test
     protected function _after()
     {
         // unset the passport class after each test
-        unset($this->passport);
+        unset($this->passportControl);
     }
 
     /**
