@@ -29,9 +29,6 @@ jobs:
       - name: Create DB
         run: mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
 
-      - name: Create DB User
-        run: mysql -e "GRANT ALL PRIVILEGES ON *.* TO dbuser@`%` IDENTIFIED BY `[123456]`;" -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:

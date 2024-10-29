@@ -43,10 +43,7 @@ class PassportControlTest extends Unit
         unset($this->passportControl);
     }
 
-    /**
-     * Check tests are working
-     */
-    public function testBlah()
+    public function testAddRole()
     {
 //        $this->assertEquals('Ready to start building tests', $this->passport->blah());
     }
