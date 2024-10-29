@@ -6,6 +6,7 @@ namespace DelTest\Passport;
 use Barnacle\Container;
 use Bone\BoneDoctrine\BoneDoctrinePackage;
 use Codeception\Test\Unit;
+use Del\Passport\PassportControl;
 use Del\Passport\PassportPackage;
 use Doctrine\ORM\EntityManagerInterface;
 use Tests\Support\UnitTester;
@@ -36,6 +37,9 @@ class PassportPackageTest extends Unit
         $package->addToContainer($container);
 
         $this->assertTrue($container->has(EntityManagerInterface::class));
+        $this->assertTrue($container->has(PassportControl::class));
+        $this->assertStringContainsString('src/Entity', $package->getEntityPath());
         $this->assertInstanceOf(EntityManagerInterface::class, $container->get(EntityManagerInterface::class));
+        $this->assertInstanceOf(PassportControl::class, $container->get(PassportControl::class));
     }
 }
