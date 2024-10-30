@@ -17,10 +17,7 @@ class PassportPackage implements RegistrationInterface, EntityRegistrationInterf
             return new PassportControl($em);
         });
     }
-
-    /**
-     * @return string
-     */
+    
     function getEntityPath(): string
     {
         return __DIR__ . '/Entity';

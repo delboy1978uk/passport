@@ -21,7 +21,7 @@ class Role implements RoleInterface
 
     #[ORM\OneToMany(targetEntity: Role::class, mappedBy: 'parentRole')]
     private Collection $children;
-    
+
     #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'children')]
     private ?Role $parentRole;
 
