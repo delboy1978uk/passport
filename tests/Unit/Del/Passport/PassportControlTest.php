@@ -9,8 +9,19 @@ use Codeception\Test\Unit;
 use Del\Passport\Entity\Role;
 use Del\Passport\PassportControl;
 use Del\Passport\PassportPackage;
+use Del\Passport\Resource;
 use Doctrine\ORM\EntityManagerInterface;
 use Tests\Support\UnitTester;
+
+class Team
+{
+    public function __construct(private readonly int $id){}
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+}
 
 class PassportControlTest extends Unit
 {
@@ -45,11 +56,53 @@ class PassportControlTest extends Unit
         unset($this->passportControl);
     }
 
-    public function testAddRole()
+    public function testAddFindAndRemoveRole()
     {
         $role = new Role();
         $role->setRoleName('superuser');
         $this->passportControl->createNewRole($role);
+        $this->tester->seeInDatabase('Role', ['rolename' => 'superuser']);
+        $role = $this->passportControl->findRole('superuser');
+        $this->assertInstanceOf(Role::class, $role);
+        $this->assertIsInt($role->getId());
+        $this->assertEquals('superuser', $role->getRoleName());
+        $this->passportControl->removeRole($role);
+        $this->tester->dontSeeInDatabase('Role', ['rolename' => 'superuser']);
+    }
 
+    public function testUserPassport()
+    {
+        $team = new Team(10);
+        $team2 = new Team(11);
+        $role = new Role();
+        $role->setRoleName('teamadmin');
+        $role->setClass('DelTest\Passport\Team');
+        $this->passportControl->createNewRole($role);
+        $passport = $this->passportControl->findUserPassport(7);
+
+        $this->assertEquals(7, $passport->getUserId());
+        $this->assertCount(0, $passport->getEntitlements());
+
+        $this->passportControl->grantEntitlement($passport, $role, new Resource($team));
+
+        $this->tester->seeInDatabase('PassportRole', [
+            'userId' => 7,
+            'entityId' => 10,
+            'role_id' => $role->getId()
+        ]);
+        $this->assertCount(1, $passport->getEntitlements());
+
+        $this->assertTrue($this->passportControl->isAuthorized($passport, new Resource($team), 'teamadmin'));
+        $this->assertFalse($this->passportControl->isAuthorized($passport, new Resource($team2), 'teamadmin'));
+
+        $passportRole = $passport->getEntitlements()[0];
+        $this->passportControl->revokeEntitlement($passportRole);
+
+        $this->tester->dontSeeInDatabase('PassportRole', [
+            'userId' => 7,
+            'entityId' => 10,
+            'role_id' => $role->getId()
+        ]);
+        $this->passportControl->removeRole($role);
     }
 }

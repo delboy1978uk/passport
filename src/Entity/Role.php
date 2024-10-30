@@ -38,11 +38,6 @@ class Role implements RoleInterface
         return $this->id;
     }
 
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
     public function getRoleName(): string
     {
         return $this->roleName;

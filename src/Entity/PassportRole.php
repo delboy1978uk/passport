@@ -21,16 +21,6 @@ class PassportRole
     #[ORM\Column(type: 'integer')]
     private $entityId;
 
-    public function getId(): int
-    {
-        return $this->id;
-    }
-
-    public function setId(int $id): void
-    {
-        $this->id = $id;
-    }
-
     public function getUserId(): int
     {
         return $this->userId;
