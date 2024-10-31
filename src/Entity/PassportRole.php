@@ -18,7 +18,7 @@ class PassportRole
     #[ORM\ManyToOne(targetEntity: Role::class)]
     private Role $role;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private $entityId;
 
     public function getUserId(): int
