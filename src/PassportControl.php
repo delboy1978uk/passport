@@ -91,4 +91,15 @@ class PassportControl
 
         return new Passport($userId, new ArrayCollection($roles));
     }
+
+    public function hasPassportRole(PassportInterface $passport, string $roleName, ?int $entityId = null): bool
+    {
+        foreach ($passport->getEntitlements() as $entitlement) {
+            if ($entitlement->getRole()->getRoleName() === $roleName && $entitlement->getEntityId() === $entityId) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -92,6 +92,7 @@ class PassportControlTest extends Unit
         ]);
         $this->assertCount(1, $passport->getEntitlements());
 
+        $this->assertTrue($this->passportControl->hasPassportRole($passport, 'teamadmin', 10));
         $this->assertTrue($this->passportControl->isAuthorized($passport, new Resource($team), 'teamadmin'));
         $this->assertFalse($this->passportControl->isAuthorized($passport, new Resource($team2), 'teamadmin'));
 
