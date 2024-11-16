@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Del\Passport\Entity;
 
+use Bone\BoneDoctrine\Traits\HasCreatedAtDate;
 use Bone\BoneDoctrine\Traits\HasId;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,6 +21,11 @@ class PassportRole
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $entityId;
+
+    #[ORM\Column(type: 'integer')]
+    private ?int $approvedById = null;
+
+    use HasCreatedAtDate;
 
     public function getUserId(): int
     {
@@ -49,5 +55,15 @@ class PassportRole
     public function setEntityId(int $entityId): void
     {
         $this->entityId = $entityId;
+    }
+
+    public function getApprovedById(): ?int
+    {
+        return $this->approvedById;
+    }
+
+    public function setApprovedById(?int $approvedById): void
+    {
+        $this->approvedById = $approvedById;
     }
 }

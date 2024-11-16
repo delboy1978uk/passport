@@ -27,9 +27,11 @@ class PassportRoleTest extends Unit
         $passportRole->setRole($role);
         $passportRole->setEntityId(5);
         $passportRole->setUserId(7);
+        $passportRole->setApprovedById(4);
 
         $this->assertInstanceOf(Role::class, $passportRole->getRole());
         $this->assertEquals(5, $passportRole->getEntityId());
         $this->assertEquals(7, $passportRole->getUserId());
+        $this->assertEquals(4, $passportRole->getApprovedById());
     }
 }
