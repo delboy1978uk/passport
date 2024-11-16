@@ -39,14 +39,19 @@ class PassportControl
         return false;
     }
 
-    public function grantEntitlement(PassportInterface $passport, RoleInterface $role, ResourceInterface $resource = null): bool
-    {
+    public function grantEntitlement(
+        PassportInterface $passport,
+        RoleInterface $role,
+        ResourceInterface $resource = null,
+        int $approvedBy = null,
+    ): bool {
         $userId = $passport->getUserId();
         $resource ? $resourceId = $resource->getResourceId() : null;
         $entitlement = new PassportRole();
         $entitlement->setUserId($userId);
         $entitlement->setRole($role);
         $resourceId ? $entitlement->setEntityId($resourceId) : null;
+        $approvedBy ? $entitlement->setApprovedById($approvedBy) : null;
         $this->entityManager->persist($entitlement);
         $this->entityManager->flush();
         $passport->getEntitlements()->add($entitlement);
