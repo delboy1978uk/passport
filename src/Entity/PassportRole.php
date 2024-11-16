@@ -9,6 +9,7 @@ use Bone\BoneDoctrine\Traits\HasId;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
+#[ORM\HasLifecycleCallbacks]
 class PassportRole
 {
     use HasId;
