@@ -3,8 +3,8 @@
 namespace Del\Passport;
 
 use Barnacle\Container;
-use Barnacle\EntityRegistrationInterface;
 use Barnacle\RegistrationInterface;
+use Bone\Contracts\Container\EntityRegistrationInterface;
 use Doctrine\ORM\EntityManager;
 
 class PassportPackage implements RegistrationInterface, EntityRegistrationInterface
@@ -17,7 +17,7 @@ class PassportPackage implements RegistrationInterface, EntityRegistrationInterf
             return new PassportControl($em);
         });
     }
-    
+
     function getEntityPath(): string
     {
         return __DIR__ . '/Entity';

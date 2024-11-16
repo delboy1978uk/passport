@@ -83,6 +83,14 @@ class PassportControl
         ]);
     }
 
+    public function findPassportRoles(Role $role, int $entityId): array
+    {
+        return $this->entityManager->getRepository(PassportRole::class)->findBy([
+            'role' => $role,
+            'entityId' => $entityId,
+        ]);
+    }
+
     public function findUserPassport(int $userId): Passport
     {
         $roles = $this->entityManager->getRepository(PassportRole::class)->findBy([
