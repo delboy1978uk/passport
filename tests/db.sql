@@ -16,6 +16,7 @@ CREATE TABLE `PassportRole` (
     `entityId` int(11) NOT NULL,
     `id` int(11) NOT NULL AUTO_INCREMENT,
     `role_id` int(11) DEFAULT NULL,
+    `approvedById` int(11) DEFAULT NULL,
     PRIMARY KEY (`id`),
     KEY `IDX_4FADA901D60322AC` (`role_id`),
     CONSTRAINT `FK_4FADA901D60322AC` FOREIGN KEY (`role_id`) REFERENCES `Role` (`id`)

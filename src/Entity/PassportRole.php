@@ -22,7 +22,7 @@ class PassportRole
     #[ORM\Column(type: 'integer', nullable: true)]
     private $entityId;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'integer', nullable: true)]
     private ?int $approvedById = null;
 
     use HasCreatedAtDate;
