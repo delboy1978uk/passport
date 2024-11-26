@@ -22,10 +22,6 @@ class PassportControl
 
         foreach ($entitlements as $passportRole) {
             $role = $passportRole->getRole();
-            codecept_debug($role->getRoleName());
-            codecept_debug($passportRole->getEntityId());
-            codecept_debug('resource ' . $resource->getResourceId());
-            codecept_debug($resource->getResourceType());
 
             if ($role->getRoleName() === $roleName
                 && $role->getClass() === $resource->getResourceType()
