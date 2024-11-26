@@ -9,7 +9,7 @@ use function get_class;
 class Resource implements ResourceInterface
 {
     public function __construct(
-        private readonly mixed $object,
+        private readonly object $object,
         private readonly string $idMethod = 'getId'
     ) {}
 
@@ -21,5 +21,10 @@ class Resource implements ResourceInterface
     public function getResourceId(): int
     {
         return $this->object->{$this->idMethod}();
+    }
+
+    public function getObject(): object
+    {
+        return $this->object;
     }
 }

@@ -8,6 +8,7 @@ use Bone\BoneDoctrine\BoneDoctrinePackage;
 use Codeception\Test\Unit;
 use Del\Passport\PassportControl;
 use Del\Passport\PassportPackage;
+use Del\Passport\Resource;
 use Doctrine\ORM\EntityManagerInterface;
 use Tests\Support\UnitTester;
 
@@ -41,5 +42,11 @@ class PassportPackageTest extends Unit
         $this->assertStringContainsString('src/Entity', $package->getEntityPath());
         $this->assertInstanceOf(EntityManagerInterface::class, $container->get(EntityManagerInterface::class));
         $this->assertInstanceOf(PassportControl::class, $container->get(PassportControl::class));
+    }
+
+    public function testResource(): void
+    {
+        $resource = new Resource(new \DateTime());
+        $this->assertInstanceOf(\DateTime::class, $resource->getClass());
     }
 }
