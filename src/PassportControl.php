@@ -23,10 +23,10 @@ class PassportControl
         foreach ($entitlements as $passportRole) {
             $role = $passportRole->getRole();
 
-            if ($role->getRoleName() === $roleName
+            if ($role->getRoleName() === 'superuser' || ($role->getRoleName() === $roleName
                 && $role->getClass() === $resource->getResourceType()
                 && $passportRole->getEntityId() === $resource->getResourceId()
-            ) {
+            )) {
                 return true;
             }
         }
