@@ -47,6 +47,6 @@ class PassportPackageTest extends Unit
     public function testResource(): void
     {
         $resource = new Resource(new \DateTime());
-        $this->assertInstanceOf(\DateTime::class, $resource->getClass());
+        $this->assertInstanceOf(\DateTime::class, $resource->getObject());
     }
 }
