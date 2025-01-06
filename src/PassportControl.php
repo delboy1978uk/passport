@@ -40,7 +40,7 @@ class PassportControl
         RoleInterface $role,
         ResourceInterface $resource = null,
         int $approvedBy = null,
-    ): bool {
+    ): PassportRole {
         $userId = $passport->getUserId();
         $resource ? $resourceId = $resource->getResourceId() : null;
         $entitlement = new PassportRole();
