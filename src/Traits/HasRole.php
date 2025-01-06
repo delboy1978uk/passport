@@ -5,10 +5,11 @@ declare(strict_types=1);
 namespace Del\Passport\Traits;
 
 use Del\Passport\Entity\Role;
+use Doctrine\ORM\Mapping as ORM;
 
 trait HasRole
 {
-    #[ORM\ManyToOne(targetEntity: Role::class)]
+    #[ORM\ManyToOne]
     private Role $role;
 
     public function getRole(): Role
