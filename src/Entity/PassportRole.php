@@ -6,6 +6,7 @@ namespace Del\Passport\Entity;
 
 use Bone\BoneDoctrine\Traits\HasCreatedAtDate;
 use Bone\BoneDoctrine\Traits\HasId;
+use Del\Passport\Traits\HasRole;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
@@ -13,12 +14,10 @@ use Doctrine\ORM\Mapping as ORM;
 class PassportRole
 {
     use HasId;
+    use HasRole;
 
     #[ORM\Column(type: 'integer')]
     private int $userId;
-
-    #[ORM\ManyToOne(targetEntity: Role::class)]
-    private Role $role;
 
     #[ORM\Column(type: 'integer', nullable: true)]
     private $entityId;
@@ -36,16 +35,6 @@ class PassportRole
     public function setUserId(int $userId): void
     {
         $this->userId = $userId;
-    }
-
-    public function getRole(): Role
-    {
-        return $this->role;
-    }
-
-    public function setRole(Role $role): void
-    {
-        $this->role = $role;
     }
 
     public function getEntityId(): ?int
