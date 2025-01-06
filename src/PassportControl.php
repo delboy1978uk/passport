@@ -52,7 +52,7 @@ class PassportControl
         $this->entityManager->flush();
         $passport->getEntitlements()->add($entitlement);
 
-        return true;
+        return $entitlement;
     }
 
     public function revokeEntitlement(PassportRole $passportRole): bool
